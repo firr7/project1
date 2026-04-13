@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CyberNet // HACKER TERMINAL</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Scanlines / CRT overlay -->
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <!-- ===== START SCREEN ===== -->
+  <div id="startScreen" class="screen active">
+    <div class="start-content">
+      <div class="glitch-wrap">
+        <div class="glitch" data-text="CYBERNET">CYBERNET</div>
+      </div>
+      <div class="start-subtitle">HACKER TERMINAL v2.7.4</div>
+      <ul class="start-hints">
+        <li><span class="prompt-arrow">&gt;</span> Complete hacking missions to earn <span class="hl-credit">CREDITS</span></li>
+        <li><span class="prompt-arrow">&gt;</span> Block incoming attacks to protect your system</li>
+        <li><span class="prompt-arrow">&gt;</span> Spend credits on powerful upgrades</li>
+        <li><span class="prompt-arrow">&gt;</span> Survive as long as possible &mdash; good luck, ghost</li>
+      </ul>
+      <button class="btn-cyber" id="startBtn">[ INITIALIZE SYSTEM ]</button>
+    </div>
+  </div>
+
+  <!-- ===== GAME OVER SCREEN ===== -->
+  <div id="gameOverScreen" class="screen">
+    <div class="gameover-content">
+      <div class="glitch-wrap">
+        <div class="glitch red" data-text="SYSTEM BREACH">SYSTEM BREACH</div>
+      </div>
+      <div class="start-subtitle red">YOU HAVE BEEN COMPROMISED</div>
+      <div id="gameOverStats" class="gameover-stats"></div>
+      <button class="btn-cyber red" id="restartBtn">[ RESTART SYSTEM ]</button>
+    </div>
+  </div>
+
+  <!-- ===== GAME SCREEN ===== -->
+  <div id="gameScreen" class="screen">
+
+    <!-- HUD -->
+    <header class="hud">
+      <div class="hud-left">
+        <div class="hud-item">
+          <span class="hud-label">CREDITS</span>
+          <span class="hud-value credit" id="creditsDisplay">&#8383; 0</span>
+        </div>
+        <div class="hud-item">
+          <span class="hud-label">LVL</span>
+          <span class="hud-value" id="levelDisplay">01</span>
+        </div>
+        <div class="hud-item hud-xp">
+          <span class="hud-label">XP</span>
+          <div class="bar-track xp-track">
+            <div class="bar-fill xp-fill" id="xpFill" style="width:0%"></div>
+          </div>
+          <span class="hud-value small" id="xpText">0/100</span>
+        </div>
+      </div>
+      <div class="hud-center">
+        <span class="sys-id">SYS://TERMINAL-7743&nbsp;|&nbsp;USER:GHOST&nbsp;|&nbsp;NET:DARKWEB</span>
+      </div>
+      <div class="hud-right">
+        <div class="hud-item hud-health">
+          <span class="hud-label">INTEGRITY</span>
+          <div class="bar-track health-track">
+            <div class="bar-fill health-fill" id="healthFill" style="width:100%"></div>
+          </div>
+          <span class="hud-value small" id="healthText">100%</span>
+        </div>
+        <div class="hud-item">
+          <span class="hud-label">SCORE</span>
+          <span class="hud-value" id="scoreDisplay">0</span>
+        </div>
+        <button class="btn-upgrade" id="upgradeBtn">&#x2B06; UPGRADES</button>
+      </div>
+    </header>
+
+    <!-- Main panels -->
+    <main class="game-area">
+
+      <!-- Left: Missions -->
+      <section class="panel" id="tasksPanel">
+        <div class="panel-header">
+          <span class="panel-title">// ACTIVE MISSIONS</span>
+          <span class="panel-badge" id="taskCount">0/4</span>
+        </div>
+        <div class="panel-body" id="tasksList">
+          <div class="empty-state">Awaiting mission assignment&hellip;</div>
+        </div>
+      </section>
+
+      <!-- Center: Terminal -->
+      <section class="panel panel-center" id="terminalPanel">
+        <div class="panel-header">
+          <span class="panel-title">// TERMINAL</span>
+          <span class="blink-cursor">&#x25AE;</span>
+        </div>
+        <div class="panel-body terminal-log" id="terminalLog"></div>
+        <div class="terminal-input-row">
+          <span class="term-prompt">ghost@darknet:~$&nbsp;</span>
+          <input type="text" id="terminalInput"
+                 placeholder="select a mission or type a command&hellip;"
+                 autocomplete="off" spellcheck="false" />
+        </div>
+      </section>
+
+      <!-- Right: Threats -->
+      <section class="panel" id="defensePanel">
+        <div class="panel-header">
+          <span class="panel-title">// INCOMING THREATS</span>
+          <span class="panel-badge danger" id="threatCount">0</span>
+        </div>
+        <div class="panel-body" id="attacksList">
+          <div class="empty-state">No threats detected</div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Status bar -->
+    <footer class="status-bar">
+      <span id="statusMsg">System online. Awaiting instructions.</span>
+      <span class="game-time" id="gameTime">00:00</span>
+    </footer>
+
+  </div><!-- end #gameScreen -->
+
+  <!-- ===== UPGRADES MODAL ===== -->
+  <div id="upgradesModal" class="modal" aria-hidden="true">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span class="panel-title">// UPGRADE TERMINAL</span>
+        <button class="modal-close" id="closeUpgrades" aria-label="Close upgrades">&#x2715;</button>
+      </div>
+      <div class="modal-body" id="upgradesList"></div>
+    </div>
+  </div>
+
+  <!-- Floating reward / damage labels are injected by JS into #gameScreen -->
+
+  <script src="js/game.js"></script>
+</body>
+</html>
